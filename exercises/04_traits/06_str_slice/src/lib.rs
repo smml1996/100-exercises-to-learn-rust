@@ -1,5 +1,7 @@
 // TODO: Re-implement `Ticket`'s accessor methods. This time return a `&str` rather than a `&String`.
 
+use std::borrow::Borrow;
+
 pub struct Ticket {
     title: String,
     description: String,
@@ -31,16 +33,16 @@ impl Ticket {
         }
     }
 
-    pub fn title(&self) -> &String {
-        &self.title
+    pub fn title(&self) -> &str {
+        self.title.borrow()
     }
 
-    pub fn description(&self) -> &String {
-        &self.description
+    pub fn description(&self) -> &str {
+        self.description.borrow()
     }
 
-    pub fn status(&self) -> &String {
-        &self.status
+    pub fn status(&self) -> &str {
+        self.status.borrow()
     }
 }
 
