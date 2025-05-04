@@ -1,6 +1,7 @@
-use crate::data::{Status, Ticket, TicketDraft};
 use std::collections::BTreeMap;
-use std::sync::{Arc, RwLock};
+use std::sync::{Arc};
+
+use crate::data::{Status, Ticket, TicketDraft};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct TicketId(u64);
@@ -28,13 +29,11 @@ impl TicketStore {
             description: ticket.description,
             status: Status::ToDo,
         };
-        let ticket = Arc::new(RwLock::new(ticket));
+        let ticket = Arc::new(ticket);
         self.tickets.insert(id, ticket);
         id
     }
 
-    // The `get` method should return a handle to the ticket
-    // which allows the caller to either read or modify the ticket.
     pub fn get(&self, id: TicketId) -> Option<Arc<RwLock<Ticket>>> {
         self.tickets.get(&id).cloned()
     }
